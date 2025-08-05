@@ -1,36 +1,74 @@
 variable "cloud_run_name" {
   type = string
+  description = "Name of the Cloud Run service"
+}
+variable "location" {
+  type = string
+  description = "Location for the Cloud Run service"
 }
 variable "deletion_protection" {
   type        = bool
-  description = "if false service is allowed to be deleted"
+  description = "If true, prevents the service from being deleted"
 }
 variable "ingress" {
   type        = string
   description = "Possible values are: INGRESS_TRAFFIC_ALL, INGRESS_TRAFFIC_INTERNAL_ONLY, INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER"
 }
-variable "location" {
-  type = string
+
+variable "service_account" {
+  type        = string
+  description = "Service account for Cloud Run to run as"
+  default     = ""
 }
+
+variable "access_service_account" {
+  type        = string
+  description = "Service account allowed to access/invoke the Cloud Run service"
+  default     = ""
+}
+
+variable "public_access" {
+  type        = bool
+  description = "If true, allow unauthenticated (public) access when no access_service_account is specified"
+  default     = false
+}
+
+
 variable "image" {
   type = string
+  description = "Container image to deploy on Cloud Run. Must be a valid container image URL"
 }
 variable "port" {
   type = number
+  description = "Port on which the container listens. Must be a valid port number (e.g., 8080)"
 }
 variable "cpu" {
   type        = string
-  description = "Only memory, CPU, and nvidia.com/gpu are supported. Use key cpu for CPU limit, memory for memory limit, nvidia.com/gpu for gpu limit. Note: The only supported values for CPU are '1', '2', '4', and '8'. Setting 4 CPU requires at least 2Gi of memory"
+  description = "CPU limit for the Cloud Run service. Must be a valid CPU size (e.g., '1', '2', etc.)"
 }
 variable "memory" {
   type        = string
-  description = "Only memory, CPU, and nvidia.com/gpu are supported. Use key cpu for CPU limit, memory for memory limit, nvidia.com/gpu for gpu limit. Note: The only supported values for CPU are '1', '2', '4', and '8'. Setting 4 CPU requires at least 2Gi of memory"
+  description = "Memory limit for the Cloud Run service. Must be a valid memory size (e.g., '512Mi', '1Gi', etc.)"
 }
-variable "allow_unauthenticated" {
-  type        = bool
-  description = "If true, allow 'allUsers' to invoke the service. If false, only authenticated users can invoke."
+variable "secret_env_vars" {
+  description = "Optional list of environment variables sourced from Secret Manager"
+  type = list(object({
+    name    = string
+    secret  = string
+    version = string
+  }))
+  default = []
+
+  validation {
+    condition     = length(var.secret_env_vars) == 0 || length(var.service_account) > 0
+    error_message = "You must specify a service_account when using secret_env_vars."
+  }
 }
-variable "service_account" {
-  type    = string
-  default = ""
+variable "config_env_vars" {
+  description = "Optional list of environment variables sourced from config"
+  type = list(object({
+    name  = string
+    value = string
+  }))
+  default = []
 }
