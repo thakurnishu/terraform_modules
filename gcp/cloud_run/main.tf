@@ -37,7 +37,7 @@ data "google_iam_policy" "cloud_run_policy" {
     for_each = !local.has_service_account ? [1] : []
     content {
       role    = "roles/run.invoker"
-      members = var.allow_authenticated ? ["allAuthenticatedUsers"] : ["allUsers"]
+      members = var.allow_unauthenticated ? ["allUsers"] : ["allAuthenticatedUsers"]
     }
   }
 }

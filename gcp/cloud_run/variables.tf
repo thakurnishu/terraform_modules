@@ -26,7 +26,7 @@ variable "memory" {
   type        = string
   description = "Only memory, CPU, and nvidia.com/gpu are supported. Use key cpu for CPU limit, memory for memory limit, nvidia.com/gpu for gpu limit. Note: The only supported values for CPU are '1', '2', '4', and '8'. Setting 4 CPU requires at least 2Gi of memory"
 }
-variable "allow_authenticated" {
+variable "allow_unauthenticated" {
   type        = bool
   description = "If true, allow 'allUsers' to invoke the service. If false, only authenticated users can invoke."
 }
