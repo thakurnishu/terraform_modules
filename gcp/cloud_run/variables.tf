@@ -72,3 +72,9 @@ variable "config_env_vars" {
   }))
   default = []
 }
+
+variable "cpu_idle" {
+  type        = bool
+  description = "If true, allows CPU to be idle when not processing requests"
+  default     = false
+}

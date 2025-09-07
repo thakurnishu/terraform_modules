@@ -43,6 +43,7 @@ resource "google_cloud_run_v2_service" "default" {
           cpu    = var.cpu
           memory = var.memory
         }
+        cpu_idle = var.cpu_idle
       }
 
       dynamic "env" {
