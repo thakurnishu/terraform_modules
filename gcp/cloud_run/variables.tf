@@ -78,3 +78,8 @@ variable "cpu_idle" {
   description = "If true, allows CPU to be idle when not processing requests"
   default     = false
 }
+
+variable "labels" {
+  description = "Key-value labels for the Cloud Run service"
+  type        = map(string)
+}

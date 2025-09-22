@@ -68,6 +68,7 @@ resource "google_cloud_run_v2_service" "default" {
       }
     }
   }
+  labels = var.labels
 }
 
 # If access_service_account is defined → bind it as the invoker (authenticated only)
