@@ -33,14 +33,8 @@ resource "aws_cloudfront_distribution" "this" {
   origin {
     domain_name = var.origin_type == "s3_website" ? var.s3_website_domain_name : var.s3_domain_name
     origin_id   = "s3-origin"
-
-    # OAC only for bucket
-    dynamic "origin_access_control_id" {
-      for_each = local.use_oac ? [1] : []
-      content {
-        origin_access_control_id = aws_cloudfront_origin_access_control.this[0].id
-      }
-    }
+    
+    origin_access_control_id = local.use_oac ? aws_cloudfront_origin_access_control.this[0].id : null
   }
 
   default_cache_behavior {
