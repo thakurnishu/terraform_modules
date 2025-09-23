@@ -1,5 +1,7 @@
 resource "aws_s3_bucket" "this" {
   bucket = var.bucket_name
+
+  tags = var.tags
 }
 
 resource "aws_s3_bucket_ownership_controls" "ownership" {
@@ -11,7 +13,7 @@ resource "aws_s3_bucket_ownership_controls" "ownership" {
 
 
 resource "aws_s3_bucket_website_configuration" "example" {
-  count = var.static_website_enabled ? 1 : 0 
+  count  = var.static_website_enabled ? 1 : 0
   bucket = aws_s3_bucket.this.id
 
   index_document {
@@ -34,7 +36,7 @@ resource "aws_s3_bucket_public_access_block" "public_access" {
 
 # Public policy if enabled
 resource "aws_s3_bucket_policy" "public" {
-  count = (var.public_read_access || var.static_website_enabled) ? 1 : 0 
+  count = (var.public_read_access || var.static_website_enabled) ? 1 : 0
 
   bucket = aws_s3_bucket.this.id
   policy = jsonencode({

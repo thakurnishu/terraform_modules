@@ -1,9 +1,9 @@
 variable "cloud_run_name" {
-  type = string
+  type        = string
   description = "Name of the Cloud Run service"
 }
 variable "location" {
-  type = string
+  type        = string
   description = "Location for the Cloud Run service"
 }
 variable "deletion_protection" {
@@ -35,11 +35,11 @@ variable "public_access" {
 
 
 variable "image" {
-  type = string
+  type        = string
   description = "Container image to deploy on Cloud Run. Must be a valid container image URL"
 }
 variable "port" {
-  type = number
+  type        = number
   description = "Port on which the container listens. Must be a valid port number (e.g., 8080)"
 }
 variable "cpu" {
