@@ -12,7 +12,7 @@ resource "aws_s3_bucket_ownership_controls" "ownership" {
 
 resource "aws_s3_bucket_website_configuration" "example" {
   count = var.static_website_enabled ? 1 : 0 
-  bucket = aws_s3_bucket.example.id
+  bucket = aws_s3_bucket.this.id
 
   index_document {
     suffix = var.index_document
