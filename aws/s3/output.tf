@@ -11,5 +11,6 @@ output "bucket_domain_name" {
 }
 
 output "website_endpoint" {
-  value = aws_s3_bucket_website_configuration.example.website_endpoint
+  value = one(aws_s3_bucket_website_configuration.example[*].website_endpoint)
 }
+
