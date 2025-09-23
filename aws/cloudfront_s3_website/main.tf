@@ -119,10 +119,7 @@ resource "aws_cloudfront_distribution" "this" {
 
   tags = var.tags
 
-  depends_on = concat(
-    var.enable_custom_domain ? [data.aws_acm_certificate.domain[0]] : [],
-    var.use_cloudfront_function ? [aws_cloudfront_function.url_rewrite[0]] : []
-  )
+  depends_on = [ aws_cloudfront_function.url_rewrite, data.aws_acm_certificate.domain ]
 }
 
 data "aws_iam_policy_document" "origin_bucket_policy" {
