@@ -1,10 +1,26 @@
 variable "bucket_name" {
-  description = "The name of the S3 bucket"
   type        = string
+  description = "Name of the S3 bucket"
 }
 
 variable "public_read_access" {
-  description = "Whether to allow public read access to the bucket"
   type        = bool
+  description = "Allow public read access to objects"
   default     = false
+}
+
+variable "static_website_enabled" {
+  type        = bool
+  description = "Enable Static Websiter Hosting"
+  default     = false
+}
+
+variable "index_document" {
+  type        = string
+  default     = "index.html"
+}
+
+variable "error_document" {
+  type        = string
+  default     = "error.html"
 }

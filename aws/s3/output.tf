@@ -1,8 +1,15 @@
 output "bucket_name" {
-  value = aws_s3_bucket.s3.bucket
+  value = aws_s3_bucket.this.bucket
 }
 
-output "bucket_regional_domain_name" {
-  value = aws_s3_bucket.s3.bucket_regional_domain_name
+output "bucket_arn" {
+  value = aws_s3_bucket.this.arn
 }
 
+output "bucket_domain_name" {
+  value = aws_s3_bucket.this.bucket_regional_domain_name
+}
+
+output "website_endpoint" {
+  value = aws_s3_bucket_website_configuration.example.website_endpoint
+}
